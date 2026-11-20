@@ -10,9 +10,9 @@ services:
 
     environment:
       VLLM_CPU_KVCACHE_SPACE: "1"
-      
+
     volumes:
-      -"${HOME}/.cache/huggingface:/root/.cache/huggingface"
+      - ${USERPROFILE}/.cache/huggingface:/root/.cache/huggingface
 
     command: 
     - --model
@@ -21,6 +21,6 @@ services:
     - bfloat16
     - --max-model-len
     - "2048"
-    - --max-nums-seqs
+    - --max-num-seqs
     - "2"
     restart: unless-stopped
