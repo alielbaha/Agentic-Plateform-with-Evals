@@ -1,0 +1,26 @@
+services:
+  vllm:
+    image: vllm/vllm-openai-cpu:latest-x86_64
+    container_name: mini-vllm
+
+    ports:
+      - "127.0.0.1:8001:8000"
+
+    shm_size: "2g"
+
+    environment:
+      VLLM_CPU_KVCACHE_SPACE: "1"
+      
+    volumes:
+      -"${HOME}/.cache/huggingface:/root/.cache/huggingface"
+
+    command: 
+    - --model
+    - Qwen/Qwen3-0.6B
+    - --dtype
+    - bfloat16
+    - --max-model-len
+    - "2048"
+    - --max-nums-seqs
+    - "2"
+    restart: unless-stopped
